@@ -1,8 +1,10 @@
 import 'package:edc_buddy/screens/home.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
+void main() async {
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
@@ -15,6 +17,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'EDC - Buddy',
       theme: ThemeData(
+        useMaterial3: true,
         // This is the theme of your application.
         //
         // Try running your application with "flutter run". You'll see the
