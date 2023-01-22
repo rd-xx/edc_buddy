@@ -67,8 +67,8 @@ class _QuestionsScreenState extends State<QuestionsScreen>
   }
 
   void _onButtonPressed() {
-    GetStorage()
-        .write(apiQuestions[_currentIndex]["Key"]!, _inputController.text);
+    GetStorage().write(apiQuestions[_currentIndex]["Key"]!,
+        GetUtils.capitalize(_inputController.text));
 
     if (_currentIndex == apiQuestions.length - 1) {
       Get.to(() => const HomeScreen());
