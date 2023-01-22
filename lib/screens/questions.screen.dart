@@ -12,13 +12,12 @@ class QuestionsScreen extends StatefulWidget {
 
 class _QuestionsScreenState extends State<QuestionsScreen> {
   int _currentIndex = 0;
-  final List<Map<String, String>> _questions = apiQuestions;
-  bool _isButtonDisabled = false;
-  TextEditingController _inputController = TextEditingController();
+  bool _isButtonDisabled = true;
+  final TextEditingController _inputController = TextEditingController();
 
   List<TextSpan> _generateTextSpans() {
     List<TextSpan> textSpans = [];
-    var words = _questions[_currentIndex]["Label"]!.split(" ");
+    var words = apiQuestions[_currentIndex]["Question"]!.split(" ");
 
     for (var word in words) {
       if (word.startsWith("_")) {
@@ -66,7 +65,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                           children: _generateTextSpans())),
                   const SizedBox(height: 10),
                   Text(
-                    _questions[_currentIndex]["Description"]!,
+                    apiQuestions[_currentIndex]["Warning"]!,
                     style: TextStyle(
                         fontSize: 16,
                         color: Colors.grey.shade800,
@@ -75,9 +74,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                   const SizedBox(height: 80),
                   TextField(
                     decoration: InputDecoration(
-                        hintText: _questions[_currentIndex]["InputHint"]!),
+                        hintText: apiQuestions[_currentIndex]["InputHint"]!),
                     cursorColor: Colors.redAccent.shade400,
                     autocorrect: false,
+                    autofocus: true,
                     controller: _inputController,
                   ),
                   const SizedBox(height: 60),
