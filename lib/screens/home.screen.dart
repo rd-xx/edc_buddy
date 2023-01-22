@@ -1,7 +1,6 @@
-import 'package:edc_buddy/screens/question.screen.dart';
+import 'package:edc_buddy/screens/questions.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -56,12 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             TextButton(
                 child: const Text("Aller aux questions."),
-                onPressed: () async {
-                  var prefs = await SharedPreferences.getInstance();
-
-                  if (!mounted) return;
-                  Get.to(QuestionScreen(prefs: prefs));
-                }),
+                onPressed: () => Get.to(const QuestionsScreen())),
           ],
         ),
       ),
