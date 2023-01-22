@@ -46,6 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Étude de cas - Buddy"),
+        automaticallyImplyLeading: false,
       ),
       body: Center(
         child: Column(
