@@ -1,16 +1,22 @@
 # edc_buddy
 
-A new Flutter project.
+Étude de cas pour Buddy.
 
-## Getting Started
+## Développement
 
-This project is a starting point for a Flutter application.
+### Prérequis
 
-A few resources to get you started if this is your first Flutter project:
+- [Flutter SDK](https://docs.flutter.dev/get-started/install)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Installation
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+# Cloner le repository
+$ git clone https://github.com/rd-xx/edc_buddy
+
+# Se déplacer dans le dossier
+$ cd edc_buddy
+
+# Installer les dépendances
+$ flutter pub get
+```
