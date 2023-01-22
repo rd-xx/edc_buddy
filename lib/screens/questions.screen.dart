@@ -2,6 +2,7 @@ import 'package:edc_buddy/api/get_questions.dart';
 import 'package:edc_buddy/screens/home.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class QuestionsScreen extends StatefulWidget {
   const QuestionsScreen({super.key});
@@ -15,6 +16,20 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   bool _isButtonDisabled = true;
   final TextEditingController _inputController = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+    _inputController.addListener(handleInputChanges);
+  }
+
+  @override
+  void dispose() {
+    _inputController.dispose();
+    super.dispose();
+  }
+
+  /// Generate a list of TextSpan from the current question.
+  /// This is used to highlight the words the words that start with an underscore.
   List<TextSpan> _generateTextSpans() {
     List<TextSpan> textSpans = [];
     var words = apiQuestions[_currentIndex]["Question"]!.split(" ");
@@ -32,13 +47,31 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     return textSpans;
   }
 
-  void _onButtonPressed() {
-    setState(() {
-      if (_currentIndex == _questions.length - 1) {
-        Get.to(() => const HomeScreen());
-        return;
-      }
+  /// Validate the input based on the current question.
+  /// This is used to enable/disable the button.
+  void handleInputChanges() {
+    bool validated = false;
+    if (apiQuestions[_currentIndex]["InputType"] == "str") {
+      validated = GetUtils.isAlphabetOnly(_inputController.text);
+    } else if (apiQuestions[_currentIndex]["InputType"] == "nbr") {
+      validated = GetUtils.isNumericOnly(_inputController.text);
+    }
 
+    setState(() {
+      _isButtonDisabled = !validated;
+    });
+  }
+
+  void _onButtonPressed() {
+    GetStorage()
+        .write(apiQuestions[_currentIndex]["Key"]!, _inputController.text);
+
+    if (_currentIndex == apiQuestions.length - 1) {
+      Get.to(() => const HomeScreen());
+      return;
+    }
+
+    setState(() {
       _currentIndex++;
       _isButtonDisabled = true;
       _inputController.clear();
