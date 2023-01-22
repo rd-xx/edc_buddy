@@ -11,15 +11,19 @@ class QuestionsScreen extends StatefulWidget {
   State<QuestionsScreen> createState() => _QuestionsScreenState();
 }
 
-class _QuestionsScreenState extends State<QuestionsScreen> {
+class _QuestionsScreenState extends State<QuestionsScreen>
+    with TickerProviderStateMixin {
   int _currentIndex = 0;
   bool _isButtonDisabled = true;
   final TextEditingController _inputController = TextEditingController();
+  late AnimationController _progressController;
 
   @override
   void initState() {
     super.initState();
     _inputController.addListener(handleInputChanges);
+    _progressController = AnimationController(vsync: this, value: 0);
+    _progressController.stop();
   }
 
   @override
@@ -75,16 +79,21 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
       _currentIndex++;
       _isButtonDisabled = true;
       _inputController.clear();
+      _progressController.value = _currentIndex / apiQuestions.length;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightBlue.shade50,
+      // backgroundColor: Colors.lightBlue.shade50,
+      appBar: AppBar(
+        title: LinearProgressIndicator(value: _progressController.value),
+        automaticallyImplyLeading: false,
+      ),
       body: Center(
-          child: Container(
-              color: Colors.lightBlue.shade100,
+          child: SizedBox(
+              // color: Colors.lightBlue.shade100,
               width: MediaQuery.of(context).size.width * 0.8,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
