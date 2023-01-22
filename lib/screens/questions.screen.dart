@@ -1,5 +1,7 @@
 import 'package:edc_buddy/api/get_questions.dart';
+import 'package:edc_buddy/screens/home.screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class QuestionsScreen extends StatefulWidget {
   const QuestionsScreen({super.key});
@@ -33,8 +35,14 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 
   void _onButtonPressed() {
     setState(() {
+      if (_currentIndex == _questions.length - 1) {
+        Get.to(() => const HomeScreen());
+        return;
+      }
+
       _currentIndex++;
       _isButtonDisabled = true;
+      _inputController.clear();
     });
   }
 
