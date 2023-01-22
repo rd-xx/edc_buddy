@@ -1,6 +1,6 @@
 var apiQuestions = [
   {
-    "Label": "Comment tu _t'appeles ?",
+    "Label": "Comment tu _t'appelles ?",
     "Description": "Les pseudos ne sont pas acceptés.",
     "InputType": "str",
     "InputHint": "Ton prénom"
